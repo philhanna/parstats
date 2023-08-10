@@ -48,7 +48,7 @@ class DataProvider:
         "Recent" list in the header section. If no games have been played,
         returns None.
         """
-        item: str = self.Sections[self.HEADER_SECTION][self.RECENT_ITEM]
+        item: str = self.config[self.HEADER_SECTION][self.RECENT_ITEM]
         if not item:
             return None
         item = item.rstrip(";")
