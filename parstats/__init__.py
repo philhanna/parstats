@@ -1,3 +1,5 @@
-__all__ = [
+from .data_provider import DataProvider
 
+__all__ = [
+    'DataProvider',
 ]
