@@ -3,9 +3,15 @@ import os
 
 
 class DataProvider:
-    """DataProvider is a structure holding a map of section names to values,
+    """
+    DataProvider is a structure holding a map of section names to values,
     obtained from the .config/gnome-games/aisleriot file
     """
+
+    HEADER_SECTION = "Aisleriot Config"
+    RECENT_ITEM = "Recent"
+    STATS_KEY = "Statistic"
+
     def __init__(self, filename=None):
 
         # If the user specified a configuration file name, use that.
@@ -13,7 +19,7 @@ class DataProvider:
         # ~/.config/gnome-games/aisleriot
 
         if not filename:
-            filename = DataProvider.default_filename()
+            filename = DataProvider.get_default_filename()
         
         # Make sure it exists
         if not os.path.exists(filename):
@@ -26,8 +32,9 @@ class DataProvider:
         
 
     @staticmethod
-    def default_filename() -> str:
-        """Returns the name of the .ini file containing aisleriot
+    def get_default_filename() -> str:
+        """
+        Returns the name of the .ini file containing aisleriot
         configuration and statistics.  Note: in this case, the file
         name does not actually end in ".ini", but its contents are
         in that format.
@@ -35,3 +42,17 @@ class DataProvider:
         config_dir = os.path.expanduser("~/.config")
         filename = os.path.join(config_dir, "gnome-games", "aisleriot")
         return filename
+    
+
+    def get_game_list(self) -> list(str) | None:
+        """
+        Returns the list of all games played so far, based on the
+        "Recent" list in the header section. If no games have been played,
+        returns None.
+        """
+        item = self.Sections[self.HEADER_SECTION][self.RECENT_ITEM]
+        if not item:
+            return None
+        item = item.rstrip(";")
+        lst = item.split(";")
+        return lst
