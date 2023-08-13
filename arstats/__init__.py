@@ -4,6 +4,7 @@ STATS_KEY = "Statistic"
 
 from .data_provider import DataProvider
 from .game_name import to_display_name, to_section_name, to_title_case
+from .statistics import Statistics
 
 __all__ = [
     'HEADER_SECTION',
@@ -13,4 +14,5 @@ __all__ = [
     'to_display_name',
     'to_section_name',
     'to_title_case',
+    'Statistics',
 ]

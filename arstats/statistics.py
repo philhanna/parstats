@@ -1,21 +1,17 @@
-import math
-import re
-from typing import List
-
 class Statistics:
     """
     Captures the wins, losses, and percentages
     """
 
     def __init__(self, wins: int, total: int, best: int, worst: int):
-        self.wins = wins
-        self.total = total
-        self.best = best
-        self.worst = worst
-        self.average = int(math.round(float(best + worst) / 2.0))
-        self.losses = total - wins
+        self._wins = wins
+        self._total = total
+        self._best = best
+        self._worst = worst
+        self._average = int(round(float(best + worst) / 2.0))
+        self._losses = total - wins
         if total != 0:
-            self.pct = int(math.round(100.0 * float(wins) / float(total)))
+            self._pct = int(round(100.0 * float(wins) / float(total)))
 
     @staticmethod
     def from_string(stat_string: str) -> 'Statistics':
@@ -39,75 +35,75 @@ class Statistics:
         """
         Returns the number of games won
         """
-        return self.wins
+        return self._wins
 
     def losses(self) -> int:
         """
         Returns the number of games lost
         """
-        return self.total - self.wins
+        return self._total - self._wins
 
     def total(self) -> int:
         """
         Returns the total number of games played
         """
-        return self.total
+        return self._total
 
     def best(self) -> int:
         """
         Returns the number of seconds in the shortest winning game
         """
-        return self.best
+        return self._best
 
     def average(self) -> int:
         """
         Returns the integer average of Best() and Worst()
         """
-        return self.average
+        return self._average
 
     def worst(self) -> int:
         """
         Returns the number of seconds in the longest winning game
         """
-        return self.worst
+        return self._worst
 
     def percentage(self) -> int:
         """
         Returns the winning fraction multiplied by 100 and rounded
         to the nearest integer
         """
-        return self.pct
+        return self._pct
 
     def wins_to_next_higher(self) -> int:
         """
         Returns the number of wins that will make the winning percentage
         one integer higher
         """
-        if self.wins == 0:
+        if self._wins == 0:
             return -1
 
         current_pct = self.percentage()
-        wins, losses = self.wins, self.losses
+        wins, losses = self._wins, self._losses
         while True:
             wins += 1
             total = wins + losses
-            next_pct = int(math.round(100 * float(wins) / float(total)))
+            next_pct = int(round(100 * float(wins) / float(total)))
             if next_pct > current_pct:
-                return wins - self.wins
+                return wins - self._wins
 
     def losses_to_next_lower(self) -> int:
         """
         Returns the number of losses that will make the winning percentage
         one integer lower
         """
-        if self.wins == 0:
+        if self._wins == 0:
             return -1
 
         current_pct = self.percentage()
-        wins, losses = self.wins, self.losses
+        wins, losses = self._wins, self._losses
         while True:
             losses += 1
             total = wins + losses
-            next_pct = int(math.round(100 * float(wins) / float(total)))
+            next_pct = int(round(100 * float(wins) / float(total)))
             if next_pct < current_pct:
-                return losses - self.losses
+                return losses - self._losses
