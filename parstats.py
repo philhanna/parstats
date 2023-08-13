@@ -1,10 +1,13 @@
 #! /usr/bin/python
 
-import arstats
+from arstats import *
 
-def main(game=None,list=False):
-    print(f"DEBUG: game={game}")
-    print(f"DEBUG: list={list}")
+
+def main(game=None, list=False):
+    """Mainline for printing aisleriot statistics
+    """
+    dp = DataProvider
+
 
 # ============================================================
 # Mainline
@@ -12,23 +15,33 @@ def main(game=None,list=False):
 if __name__ == '__main__':
 
     import argparse
-    
-    # Create the argument parser
 
-    parser = argparse.ArgumentParser(
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter,
         description='Shows statistics for Aisleriot games played by the current user.',
-        usage = 'python parstats.py [OPTIONS]'
+        usage='python parstats.py [OPTIONS]',
+        epilog="""Output includes:
+- Game name
+- Number of wins
+- Number of losses
+- Total games played
+- Best time
+- Average time
+- Worst time
+- Winning percentage
+- Number of wins to next higher percent
+- Number of losses to next lower percent
+"""
     )
 
     # Add the command line options
 
-    parser.add_argument('-g', '--game',
-        metavar='GAMENAME',
-        help='name of game for which statistics are desired (default=current)')
-
     parser.add_argument('-l', '--list',
-        action='store_true',
-        help='list the names of all games played and exit')
+                        action='store_true',
+                        help='list the names of all games played and exit')
+
+    parser.add_argument('-g', '--game',
+                        metavar='GAMENAME',
+                        help='name of game for which statistics are desired (default=current)')
 
     # Parse the command line arguments
 
