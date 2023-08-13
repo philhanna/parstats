@@ -25,7 +25,12 @@ class DataProvider:
         # Create a ConfigParser object and read the .ini file into it
         self.config = configparser.ConfigParser()
         self.config.read(filename)
-        self.header = self.config[HEADER_SECTION]
+
+        # Pre-read the header section into an instance variable
+        if self.config.has_section(HEADER_SECTION):
+            self.header = self.config[HEADER_SECTION]
+        else:
+            self.header = None
 
 
     @staticmethod
