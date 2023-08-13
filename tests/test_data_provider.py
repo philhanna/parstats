@@ -35,9 +35,9 @@ def test_get_default_filename(dp):
 @pytest.mark.parametrize("filename, expected, expected_error", [
     (os.path.join("testdata", "aisleriot"), ["spider", "freecell", "canfield", "klondike"], None),
     (os.path.join("testdata", "stooges.ini"), None, None),
-    #(os.path.join("testdata", "non-existent.ini"), None, FileNotFoundError),
-    #(os.path.join("testdata", "bogus.ini"), None, configparser.Error),
-    #(os.path.join("testdata", "bogus2.ini"), None, configparser.Error),
+    (os.path.join("testdata", "non-existent.ini"), None, FileNotFoundError),
+    (os.path.join("testdata", "bogus.ini"), None, configparser.Error),
+    (os.path.join("testdata", "bogus2.ini"), None, configparser.Error),
 ])
 def test_data_provider_game_list(filename, expected, expected_error):
     if expected_error:
