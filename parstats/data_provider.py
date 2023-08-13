@@ -1,16 +1,13 @@
 import configparser
 import os
 
+from parstats import HEADER_SECTION, RECENT_ITEM
 
 class DataProvider:
     """
     DataProvider is a structure holding a map of section names to values,
     obtained from the .config/gnome-games/aisleriot file
     """
-
-    HEADER_SECTION = "Aisleriot Config"
-    RECENT_ITEM = "Recent"
-    STATS_KEY = "Statistic"
 
     def __init__(self, filename=None):
 
@@ -26,9 +23,9 @@ class DataProvider:
             raise FileNotFoundError(f"{filename} does not exist")
 
         # Create a ConfigParser object and read the .ini file into it
-
         self.config = configparser.ConfigParser()
         self.config.read(filename)
+
 
     @staticmethod
     def get_default_filename() -> str:
@@ -48,9 +45,10 @@ class DataProvider:
         "Recent" list in the header section. If no games have been played,
         returns None.
         """
-        item: str = self.config[self.HEADER_SECTION][self.RECENT_ITEM]
+        item = self.config(HEADER_SECTION, RECENT_ITEM)
         if not item:
             return None
+        
         item = item.rstrip(";")
         lst: list[str] = item.split(";")
         return lst
