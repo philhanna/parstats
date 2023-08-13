@@ -25,6 +25,7 @@ class DataProvider:
         # Create a ConfigParser object and read the .ini file into it
         self.config = configparser.ConfigParser()
         self.config.read(filename)
+        self.header = self.config[HEADER_SECTION]
 
 
     @staticmethod
@@ -39,13 +40,17 @@ class DataProvider:
         filename: str = os.path.join(config_dir, "gnome-games", "aisleriot")
         return filename
 
+
     def get_game_list(self) -> list[str] | None:
         """
         Returns the list of all games played so far, based on the
         "Recent" list in the header section. If no games have been played,
         returns None.
         """
-        item = self.config(HEADER_SECTION, RECENT_ITEM)
+        if not self.header:
+            return None
+        
+        item = self.header[RECENT_ITEM]
         if not item:
             return None
         
