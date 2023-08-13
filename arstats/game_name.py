@@ -1,3 +1,20 @@
+def to_display_name(game_name: str) -> str:
+    """
+    Converts a game name as found in the [AisleRiot Config]
+    Recent=name1;name2;name3 item into a name suitable for display
+    """
+    game_name = game_name.replace(".scm", "")
+    game_name = game_name.replace("-", " ")
+    game_name = game_name.replace("_", " ")
+    names = game_name.split()
+    if len(names) == 0:
+        return ""
+    parts = []
+    for name in names:
+        parts.append(to_title_case(name))
+    return " ".join(parts)
+
+
 def to_section_name(gameName: str) -> str:
     """
     Converts a game name to the corresponding section name.  Hyphens are
