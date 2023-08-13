@@ -1,12 +1,10 @@
 # aisleriot
 
-Displays statistics from Aisleriot card games on Ubuntu
-
 Displays statistics for Linux Aisleriot card games
 
 ## Usage
 ```
-Usage: arstats [OPTION]...
+Usage: parstats [OPTION]...
 
 Shows statistics for Aisleriot games played by the current user.
 

@@ -4,8 +4,8 @@ import os.path
 
 import pytest
 
-from parstats import DataProvider
-from parstats import HEADER_SECTION, RECENT_ITEM
+from arstats import DataProvider
+from arstats import HEADER_SECTION, RECENT_ITEM
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
 import configparser
 import os
 
-from parstats import HEADER_SECTION, RECENT_ITEM
+from arstats import HEADER_SECTION, RECENT_ITEM
 
 class DataProvider:
     """
