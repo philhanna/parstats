@@ -1,6 +1,6 @@
 HEADER_SECTION = "Aisleriot Config"
-RECENT_ITEM = "recent"
-STATS_KEY = "statistic"
+RECENT_ITEM = "Recent"
+STATS_KEY = "Statistic"
 
 from .data_provider import DataProvider
 
