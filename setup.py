@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='Aisleriot Statistics',
+    name='parstats',
     version='1.0.0',
     packages=['arstats'],
     url='https://github.com/philhanna/parstats',
@@ -12,4 +12,9 @@ setup(
     install_requires=[
         'pytest',
     ],
+    entry_points=[
+        'console_scripts': [
+            'parstats = parstats:parstats',
+        ],
+    ]
 )
