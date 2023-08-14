@@ -7,10 +7,10 @@ import logging
 def main(game=None, list=False):
     """Mainline for printing aisleriot statistics
     """
-    dp = DataProvider
+    dp = DataProvider()
     
     if list:
-        gameNames = dp.GameList()
+        gameNames = dp.get_game_list()
         if gameNames:
             for i, gameName in enumerate(gameNames):
                 print(f'{i+1}: {to_display_name(gameName)}')
@@ -30,21 +30,13 @@ def main(game=None, list=False):
     print_statistics(dp, gameName)
 
 def print_statistics(dp: DataProvider, game_name: str):
-    s_name: str = to_section_name(game_name)
-    section = dp.Sections.get(s_name, None)
-    if not section:
-        logging.error(f"Game {game_name} not found")
-        return
-
-    stat_string = section.get(STATS_KEY, None)
+    s_name = to_section_name(game_name)
+    stat_string = dp.config.get(s_name, STATS_KEY)
     if not stat_string:
         logging.error("Statistics not found")
         return
 
-    ps, err = Statistics.from_string(stat_string)
-    if err:
-        logging.error(err)
-        return
+    ps = Statistics.from_string(stat_string)
 
     parts = [
         "Game name:",
@@ -55,22 +47,26 @@ def print_statistics(dp: DataProvider, game_name: str):
         "Average time:",
         "Worst time:",
         "Winning percentage:",
-        f"Number of wins to {ps.Percentage() + 1}%:",
-        f"Number of losses to {ps.Percentage() - 1}%:"
+        f"Number of wins to {ps.percentage() + 1}%:",
+        f"Number of losses to {ps.percentage() - 1}%:"
     ]
 
+    if ps.wins() == 0:
+        parts = parts[:4]
+        
     parts = pad_parts(parts)
 
     parts[0] += f" {game_name}"
-    parts[1] += f" {ps.Wins()}"
-    parts[2] += f" {ps.Losses()}"
-    parts[3] += f" {ps.Total()}"
-    parts[4] += f" {seconds_to_time(ps.Best())}"
-    parts[5] += f" {seconds_to_time(ps.Average())}"
-    parts[6] += f" {seconds_to_time(ps.Worst())}"
-    parts[7] += f" {ps.Percentage()}%"
-    parts[8] += f" {ps.WinsToNextHigher()}"
-    parts[9] += f" {ps.LossesToNextLower()}"
+    parts[1] += f" {ps.wins()}"
+    parts[2] += f" {ps.losses()}"
+    parts[3] += f" {ps.total()}"
+    if ps.wins() > 0:
+        parts[4] += f" {seconds_to_time(ps.best())}"
+        parts[5] += f" {seconds_to_time(ps.average())}"
+        parts[6] += f" {seconds_to_time(ps.worst())}"
+        parts[7] += f" {ps.percentage()}%"
+        parts[8] += f" {ps.wins_to_next_higher()}"
+        parts[9] += f" {ps.losses_to_next_lower()}"
 
     stats = "\n".join(parts)
     print(stats)

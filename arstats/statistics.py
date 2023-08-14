@@ -57,7 +57,7 @@ class Statistics:
 
     def average(self) -> int:
         """
-        Returns the integer average of Best() and Worst()
+        Returns the integer average of best() and worst()
         """
         return self._average
 

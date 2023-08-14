@@ -62,3 +62,13 @@ class DataProvider:
         item = item.rstrip(";")
         lst: list[str] = item.split(";")
         return lst
+
+    def most_recent_game(self):
+        """
+        MostRecentGame returns the name of the game most recently played,
+        or the empty string if no games have been played.
+        """
+        list = self.get_game_list()
+        if list is None:
+            return ""
+        return list[0]
