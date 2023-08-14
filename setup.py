@@ -12,9 +12,9 @@ setup(
     install_requires=[
         'pytest',
     ],
-    entry_points=[
+    entry_points={
         'console_scripts': [
             'parstats = parstats:parstats',
         ],
-    ]
+    }
 )
