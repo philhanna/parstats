@@ -123,6 +123,9 @@ if __name__ == '__main__':
                         metavar='GAMENAME',
                         help='name of game for which statistics are desired (default=current)')
 
+    parser.add_argument('-v', '--version',
+                        action='store_true',
+                        help="show the version number and exit")
     # Parse the command line arguments
 
     args = parser.parse_args()

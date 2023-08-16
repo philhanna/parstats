@@ -11,8 +11,8 @@ Shows statistics for Aisleriot games played by the current user.
 Options:
   -h, --help            show this help message and exit
   -l, --list            list the names of all games played and exit
-  -g, --game=GAMENAME	Name of game for which statistics are desired
-                        list the names of all games played and exit
+  -g, --game=GAMENAME	name of game for which statistics are desired
+  -v, --version         show the version number and exit
 
 Output includes:
   - Game name
