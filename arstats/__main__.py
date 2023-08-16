@@ -4,11 +4,12 @@ from arstats import *
 import logging
 
 
-def main(game=None, list=False):
+def main(args):
     """Mainline for printing aisleriot statistics
     """
     dp = DataProvider()
     
+    list = args.list
     if list:
         gameNames = dp.get_game_list()
         if gameNames:
@@ -18,7 +19,7 @@ def main(game=None, list=False):
             print('No games have been played')
         return
 
-    gameName = game
+    gameName = args.game
     if not gameName:
         gameName = dp.most_recent_game()
 
@@ -30,6 +31,9 @@ def main(game=None, list=False):
     print_statistics(dp, gameName)
 
 def print_statistics(dp: DataProvider, game_name: str):
+    """
+    Prints the statistics provided by the data provider
+    """
     s_name = to_section_name(game_name)
     stat_string = dp.config.get(s_name, STATS_KEY)
     if not stat_string:
@@ -52,6 +56,7 @@ def print_statistics(dp: DataProvider, game_name: str):
     ]
 
     if ps.wins() == 0:
+        # Show only part of the stats if the game has no wins yet
         parts = parts[:4]
         
     parts = pad_parts(parts)
@@ -125,9 +130,8 @@ if __name__ == '__main__':
     parser.add_argument('-v', '--version',
                         action='store_true',
                         help="show the version number and exit")
+    
     # Parse the command line arguments
 
     args = parser.parse_args()
-    game = args.game
-    list = args.list
-    main(game, list)
+    main(args)
