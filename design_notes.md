@@ -10,9 +10,9 @@ Here is an updated example of the project structure with the `setup.py` file
 included:
 
 ```
-myproject/
+parstats/
 ├── setup.py
-├── myproject/
+├── arstats/
 │   ├── __init__.py
 │   ├── main.py
 │   ├── module1/
@@ -25,7 +25,7 @@ myproject/
 │   ├── __init__.py
 │   ├── test_module1.py
 │   └── test_module2.py
-└── data/
+└── testdata/
     ├── data1.json
     └── data2.csv
 ```
@@ -34,7 +34,7 @@ In this structure, the `setup.py` file is placed in the root directory of the
 project, alongside the `myproject` directory. The `myproject` directory
 contains the main module `main.py` and the subdirectories for different
 components of the application, such as `module1` and `module2`. The `tests`
-directory contains test modules, and the `data` directory contains non-Python
+directory contains test modules, and the `testdata` directory contains non-Python
 data.
 
 The `setup.py` file is used to define the metadata and dependencies of your
