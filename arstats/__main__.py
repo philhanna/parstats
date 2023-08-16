@@ -5,12 +5,12 @@ import logging
 
 
 def main(args):
-    """Mainline for printing aisleriot statistics
+    """
+    Mainline for printing aisleriot statistics
     """
     dp = DataProvider()
-    
-    list = args.list
-    if list:
+
+    if args.list:
         gameNames = dp.get_game_list()
         if gameNames:
             for i, gameName in enumerate(gameNames):
@@ -19,29 +19,42 @@ def main(args):
             print('No games have been played')
         return
 
+    # Figure out the game for which statistics are desired.
+    # If the user specified something, use that.
+    # Otherwise, use the most recently played game.
+    # The name is sanitized by replacing "_" and "-" with blanks,
+    # and all parts of the name are converted to Pascal case
     gameName = args.game
     if not gameName:
         gameName = dp.most_recent_game()
-
     if not gameName:
         print('No games have been played')
         return
-
     gameName = to_display_name(gameName)
+
+    # Now print the statistics
     print_statistics(dp, gameName)
+
 
 def print_statistics(dp: DataProvider, game_name: str):
     """
     Prints the statistics provided by the data provider
     """
+
+    # Convert the display name to the name of the section used in
+    # the .ini file
     s_name = to_section_name(game_name)
+
+    # Get the statistics from that section
     stat_string = dp.config.get(s_name, STATS_KEY)
     if not stat_string:
         logging.error("Statistics not found")
         return
-
     ps = Statistics.from_string(stat_string)
 
+    # Start creating the output lines. We want to have the key/value pairs to
+    # be aligned vertically, so we create the key parts first, then pad them
+    # all to the maximum length.
     parts = [
         "Game name:",
         "Number of wins:",
@@ -54,18 +67,18 @@ def print_statistics(dp: DataProvider, game_name: str):
         f"Number of wins to {ps.percentage() + 1}%:",
         f"Number of losses to {ps.percentage() - 1}%:"
     ]
-
-    if ps.wins() == 0:
-        # Show only part of the stats if the game has no wins yet
-        parts = parts[:4]
-        
     parts = pad_parts(parts)
+
+    # Now append the stats values on each line
+    # Show only part of the stats if the game has no wins yet
 
     parts[0] += f" {game_name}"
     parts[1] += f" {ps.wins()}"
     parts[2] += f" {ps.losses()}"
     parts[3] += f" {ps.total()}"
-    if ps.wins() > 0:
+    if ps.wins() == 0:
+        parts = parts[:4]
+    else:
         parts[4] += f" {seconds_to_time(ps.best())}"
         parts[5] += f" {seconds_to_time(ps.average())}"
         parts[6] += f" {seconds_to_time(ps.worst())}"
@@ -74,7 +87,10 @@ def print_statistics(dp: DataProvider, game_name: str):
         parts[9] += f" {ps.losses_to_next_lower()}"
 
     stats = "\n".join(parts)
+
+    # Print the results
     print(stats)
+
 
 def pad_parts(parts):
     """
@@ -83,6 +99,7 @@ def pad_parts(parts):
     max_len = max(len(s) for s in parts)
     new_parts = [s.ljust(max_len) for s in parts]
     return new_parts
+
 
 def seconds_to_time(seconds):
     """
@@ -94,6 +111,7 @@ def seconds_to_time(seconds):
     ss = seconds % 60
     return f"{mm:02d}:{ss:02d}"
 
+
 # ============================================================
 # Mainline
 # ============================================================
@@ -102,9 +120,9 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter,
-        description='Shows statistics for Aisleriot games played by the current user.',
-        usage='python parstats.py [OPTIONS]',
-        epilog="""Output includes:
+                                     description='Shows statistics for Aisleriot games played by the current user.',
+                                     usage='python parstats.py [OPTIONS]',
+                                     epilog="""Output includes:
 - Game name
 - Number of wins
 - Number of losses
@@ -116,7 +134,7 @@ if __name__ == '__main__':
 - Number of wins to next higher percent
 - Number of losses to next lower percent
 """
-    )
+                                     )
 
     # Add the command line options
 
@@ -130,7 +148,7 @@ if __name__ == '__main__':
     parser.add_argument('-v', '--version',
                         action='store_true',
                         help="show the version number and exit")
-    
+
     # Parse the command line arguments
 
     args = parser.parse_args()
