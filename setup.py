@@ -1,8 +1,8 @@
 from setuptools import setup
 
 setup(
-    name='parstats',
-    version='1.0.0',
+    name='arstats',
+    version='1.1.0',
     packages=['arstats'],
     url='https://github.com/philhanna/parstats',
     license='MIT',
@@ -12,9 +12,4 @@ setup(
     install_requires=[
         'pytest',
     ],
-    entry_points={
-        'console_scripts': [
-            'parstats = parstats:parstats',
-        ],
-    }
 )
