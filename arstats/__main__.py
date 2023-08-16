@@ -120,7 +120,6 @@ if __name__ == '__main__':
                         help='list the names of all games played and exit')
 
     parser.add_argument('-g', '--game',
-                        metavar='GAMENAME',
                         help='name of game for which statistics are desired (default=current)')
 
     parser.add_argument('-v', '--version',
