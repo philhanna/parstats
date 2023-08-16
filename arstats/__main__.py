@@ -2,6 +2,7 @@
 
 from arstats import *
 import logging
+import subprocess
 
 
 def main(args):
@@ -10,6 +11,8 @@ def main(args):
     """
     dp = DataProvider()
 
+    # If the list of games played is requested, do that
+    # and then exit
     if args.list:
         gameNames = dp.get_game_list()
         if gameNames:
@@ -112,6 +115,20 @@ def seconds_to_time(seconds):
     return f"{mm:02d}:{ss:02d}"
 
 
+def show_version():
+    def run_command(cmd):
+        output = subprocess.check_output(cmd, shell=True, text=True)
+        return output
+
+    result = run_command('pip show arstats')
+    for line in result.splitlines():
+        if line.startswith("Version:"):
+            _, version_number = line.split(":")
+            version_number = version_number.strip()
+            print(f"arstats version {version_number}")
+            return    
+    print(f"No version number found")
+
 # ============================================================
 # Mainline
 # ============================================================
@@ -152,4 +169,11 @@ if __name__ == '__main__':
     # Parse the command line arguments
 
     args = parser.parse_args()
+
+    # Show app version and exit if requested
+
+    if args.version:
+        show_version()
+        exit(0)
+
     main(args)
