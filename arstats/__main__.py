@@ -138,7 +138,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter,
                                      description='Shows statistics for Aisleriot games played by the current user.',
-                                     usage='python parstats.py [OPTIONS]',
+                                     usage='arstats [OPTIONS]',
                                      epilog="""Output includes:
 - Game name
 - Number of wins

@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='arstats',
-    version='1.2.0',
+    version='1.2.1',
     packages=['arstats'],
     url='https://github.com/philhanna/parstats',
     license='MIT',

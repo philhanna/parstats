@@ -4,7 +4,7 @@ Displays statistics for Linux Aisleriot card games
 
 ## Usage
 ```
-Usage: parstats [OPTION]...
+Usage: arstats [OPTION]...
 
 Shows statistics for Aisleriot games played by the current user.
 
@@ -28,5 +28,8 @@ Output includes:
 ```
 ## Installation
 
-TBD
+```
+cd /tmp
+git clone git@github.com:/philhanna/parstats.git
+```
 
