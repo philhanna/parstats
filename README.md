@@ -31,5 +31,7 @@ Output includes:
 ```
 cd /tmp
 git clone git@github.com:/philhanna/parstats.git
+cd parstats
+pip install .
 ```
 
