@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog].
 	
 ## [Unreleased]
 
+## [1.2.2] - 2023-08-18
+Finished installation instructions
+
+## [1.2.1] - 2023-08-18
+Updated usage string with actual program call
+
 ## [1.2.0] - 2023-08-18
 Implemented --version option
 
@@ -16,7 +22,9 @@ Finished mainline
 
 [Semantic Versioning]: http://semver.org
 [Keep a Changelog]: http://keepachangelog.com
-[Unreleased]: https://github.com/philhanna/parstats/compare/1.2.0..HEAD
+[Unreleased]: https://github.com/philhanna/parstats/compare/1.2.2..HEAD
+[1.2.2]: https://github.com/philhanna/parstats/compare/1.2.1..1.2.2
+[1.2.1]: https://github.com/philhanna/parstats/compare/1.2.0..1.2.1
 [1.2.0]: https://github.com/philhanna/parstats/compare/1.1.0..1.2.0
 [1.1.0]: https://github.com/philhanna/parstats/compare/1.0.0..1.1.0
 [1.0.0]: https://github.com/philhanna/parstats/compare/8ae3ba2..1.0.0
